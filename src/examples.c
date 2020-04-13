@@ -26,10 +26,15 @@ int main() {
 
   //funge
   int* numPtr = &num;
-  printf("main: stampo variabile (di tipo pointer) in cui ho salvato l'indirizzo della variabile num: %d\n", numPtr);
 
   //funge, sintassi equivalente alla precedente
   // int *numPtr = &num;
+
+  //funge
+  printf("main: stampo variabile (di tipo pointer) in cui ho salvato l'indirizzo della variabile num: %d\n", numPtr);
+
+  //funge
+  printf("main: stampo il valore presente nell'indirizzo a cui punta il puntatore numPtr: %d\n", *numPtr);
 
   //errore: non posso modificare un item segnato come #define
   // definedConstant++;
