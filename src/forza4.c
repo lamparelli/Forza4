@@ -8,20 +8,23 @@ int field[rows][cols];
 
 void printBoard();
 void getMove(int coin);
-void setMove(int row, int col, int coin);
+void setMove(int col, int coin);
+bool isColFull(int col);
+bool isEmptyCell(int row, int col);
 
 int main() {
   int coin = 1;
   bool keepPlaying = true;
-  while(keepPlaying == true){
+  while(keepPlaying){
     printBoard();
     getMove(coin);
   }
   return 0;
 }
 
+//Prints the rows in reverse order (the first row in the array will be displayed for last, as bottom row)
 void printBoard() {
-  for (int row = 0; row < rows; row++) {
+  for (int row = rows-1; row >= 0; row--) {
     for (int elem = 0; elem < cols; elem++) {
         printf(" %d ", field[row][elem]);
     }
@@ -30,24 +33,42 @@ void printBoard() {
 }
 
 void getMove(int coin){
-  int row, col;
-  //read row
-  do{
-    printf("Inserisci riga da 1 a %d: ", rows);
-    scanf("%d", &row);
-
-  }while(row < 1 || row > rows);
-  row--;
+  int col;
   //read col
   do{
-    printf("Inserisci colonna da 1 a %d: ", cols);
+    printf("Inserisci una colonna valida da 1 a %d: ", cols);
     scanf("%d", &col);
+    col--;
+  }while(col < 0 || col >= cols || isColFull(col));
 
-  }while(col < 1 || col > cols);
-  col--;
-  setMove(row, col, coin);
+  setMove(col, coin);
 }
 
-void setMove(int row, int col, int coin){
-  field[row][col] = coin;
+//insert coin in lowest empty cell of col
+void setMove(int col, int coin) {
+  for (int row = 0; row < rows; row++) {
+    if (isEmptyCell(row, col)) {
+      field[row][col] = coin;
+      break;
+    }
+  }
+}
+
+bool isColFull(int col) {
+  bool isFull = true;
+  for (int row = 0; row < rows; row++) {
+    if (isEmptyCell(row, col)) {
+      isFull = false;
+    }
+  }
+
+  return isFull;
+}
+
+bool isEmptyCell(int row, int col) {
+  if (field[row][col] == 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
