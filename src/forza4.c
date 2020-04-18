@@ -11,6 +11,7 @@ void getMove(int coin);
 void setMove(int col, int coin);
 bool isColFull(int col);
 bool isEmptyCell(int row, int col);
+int changePlayer(int coin);
 
 int main() {
   int coin = 1;
@@ -18,6 +19,7 @@ int main() {
   while(keepPlaying){
     printBoard();
     getMove(coin);
+    coin = changePlayer(coin);
   }
   return 0;
 }
@@ -36,6 +38,7 @@ void getMove(int coin){
   int col;
   //read col
   do{
+    printf("\n\nTocca a giocatore %d\n", coin);
     printf("Inserisci una colonna valida da 1 a %d: ", cols);
     scanf("%d", &col);
     col--;
@@ -70,5 +73,13 @@ bool isEmptyCell(int row, int col) {
     return true;
   } else {
     return false;
+  }
+}
+
+int changePlayer(int coin) {
+  if (coin == 1) {
+    return 2;
+  } else {
+    return 1;
   }
 }
